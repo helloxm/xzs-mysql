@@ -1,11 +1,11 @@
 {
     "name": "xzs-admin",
     "version": "3.9.0",
-    "author": "武汉思维跳跃科技有限公司",
+    "author": "厦门网舜软件科技有限公司",
     "description": "学之思管理系统",
     "license": "AGPL-3.0",
     "private": true,
-    "homepage": "https://www.mindskip.net/xzs.html",
+    "homepage": "https://noi.netsain.com",
     "scripts": {
         "serve": "vue-cli-service serve --mode dev",
         "build": "vue-cli-service build --mode prod",
@@ -14,14 +14,6 @@
         "build:pre": "vue-cli-service build --mode pre",
         "build:prod": "vue-cli-service build --mode prod",
         "lint": "vue-cli-service lint"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://gitee.com/mindskip/xzs-mysql.git"
-    },
-    "bugs": {
-        "url": "https://gitee.com/mindskip/xzs-mysql/issues",
-        "email": "mindskip@qq.com"
     },
     "husky": {
         "hooks": {

@@ -3,9 +3,9 @@ const state = {
   user: {
     sexEnum: [{ key: 1, value: '男' }, { key: 2, value: '女' }],
     statusEnum: [{ key: 1, value: '启用' }, { key: 2, value: '禁用' }],
-    levelEnum: [{ key: 1, value: '一年级' }, { key: 2, value: '二年级' }, { key: 3, value: '三年级' }, { key: 4, value: '四年级' }, { key: 5, value: '五年级' }, { key: 6, value: '六年级' },
-      { key: 7, value: '初一' }, { key: 8, value: '初二' }, { key: 9, value: '初三' },
-      { key: 10, value: '高一' }, { key: 11, value: '高二' }, { key: 12, value: '高三' }],
+    levelEnum: [{ key: 1, value: 'GESP 1' }, { key: 2, value: 'GESP 2' }, { key: 3, value: 'GESP 3' }, { key: 4, value: 'GESP 4' }, { key: 5, value: 'GESP 5' }, { key: 6, value: 'GESP 6' },
+      { key: 7, value: 'GESP 7' }, { key: 8, value: 'GESP 8' }, { key: 9, value: 'CSP-X' },
+      { key: 10, value: 'CSP-J' }, { key: 11, value: 'CSP-S' }],
     roleEnum: [{ key: 1, value: '学生' }, { key: 2, value: '教师' }, { key: 3, value: '管理员' }],
     statusTag: [{ key: 1, value: 'success' }, { key: 2, value: 'danger' }],
     statusBtn: [{ key: 1, value: '禁用' }, { key: 2, value: '启用' }]

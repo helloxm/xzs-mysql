@@ -20,8 +20,8 @@
                         @keyup.enter.native="handleLogin"/>
             </div>
             <div class="lowin-group">
-              <label>年级 </label>
-              <el-select class="lowin-input" v-model="loginForm.userLevel" placeholder="年级">
+              <label>级别 </label>
+              <el-select class="lowin-input" v-model="loginForm.userLevel" placeholder="级别">
                 <el-option v-for="item in levelEnum" :key="item.key" :value="item.key" :label="item.value"></el-option>
               </el-select>
             </div>
@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="account-foot-copyright">
-      <span>Copyright ©2019-2023 武汉思维跳跃科技有限公司 版权所有</span>
+      <span>Copyright ©2019-2023 厦门网舜软件科技有限公司 版权所有</span>
     </div>
   </div>
 </template>

@@ -58,7 +58,7 @@
       </div>
     </el-footer>
     <div class="foot-copyright">
-      <span>Copyright ©2019-2023 武汉思维跳跃科技有限公司 版权所有</span>
+      <span>Copyright ©2019-2023 厦门网舜软件科技有限公司 版权所有</span>
     </div>
   </el-container>
 </template>
