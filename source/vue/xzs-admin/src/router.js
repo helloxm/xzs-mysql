@@ -59,6 +59,19 @@ const constantRoutes = [
         hidden: true
       },
       {
+        path: 'teacher/list',
+        component: () => import('@/views/user/teacher/list'),
+        name: 'UserTeacherPageList',
+        meta: { title: '老师列表', noCache: true }
+      },
+      {
+        path: 'teacher/edit',
+        component: () => import('@/views/user/teacher/edit'),
+        name: 'UserTeacherEdit',
+        meta: { title: '老师编辑', noCache: true, activeMenu: '/user/teacher/list' },
+        hidden: true
+      },
+      {
         path: 'admin/list',
         component: () => import('@/views/user/admin/list'),
         name: 'UserAdminPageList',
