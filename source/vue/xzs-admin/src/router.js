@@ -215,6 +215,18 @@ const constantRoutes = [
         component: () => import('@/views/answer/list'),
         name: 'AnswerPageList',
         meta: { title: '答卷列表', noCache: true }
+      },
+      {
+        path: 'judgeList',
+        component: () => import('@/views/answer/judgeList'),
+        name: 'AnswerPageJudgeList',
+        meta: { title: '批改列表', noCache: true }
+      },
+      {
+        path: 'completeList',
+        component: () => import('@/views/answer/completeList'),
+        name: 'AnswerPageCompleteList',
+        meta: { title: '试卷完成', noCache: true }
       }
     ]
   },
