@@ -211,12 +211,6 @@ const constantRoutes = [
     alwaysShow: true,
     children: [
       {
-        path: 'list',
-        component: () => import('@/views/answer/list'),
-        name: 'AnswerPageList',
-        meta: { title: '答卷列表', noCache: true }
-      },
-      {
         path: 'judgeList',
         component: () => import('@/views/answer/judgeList'),
         name: 'AnswerPageJudgeList',
@@ -227,7 +221,28 @@ const constantRoutes = [
         component: () => import('@/views/answer/completeList'),
         name: 'AnswerPageCompleteList',
         meta: { title: '试卷完成', noCache: true }
-      }
+      },
+      {
+        path: 'read',
+        component: () => import('@/views/exam/paper/read'),
+        name: 'ExamPaperRead',
+        meta: { title: '试卷查看', noCache: true, activeMenu: '/answer/list' },
+        hidden: true
+      },
+      {
+        path: 'answerprinter',
+        component: () => import('@/views/exam/paper/answerprinter'),
+        name: 'ExamPaperPrinter',
+        meta: { title: '分析打印', noCache: true, activeMenu: '/answer/list' },
+        hidden: true
+      },
+      {
+        path: 'printer',
+        component: () => import('@/views/exam/paper/printer'),
+        name: 'ExamPaperPrinter',
+        meta: { title: '试卷打印', noCache: true, activeMenu: '/answer/list' },
+        hidden: true
+      },
     ]
   },
   {

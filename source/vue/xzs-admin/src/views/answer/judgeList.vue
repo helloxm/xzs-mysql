@@ -29,7 +29,8 @@
       <el-table-column prop="createTime" label="提交时间" width="160px"/>
       <el-table-column  label="操作" align="center"  width="160px">
         <template slot-scope="{row}">
-          <el-button size="mini" @click="$router.push({path:'/exam/paper/edit',query:{id:row.id}})" >批改</el-button>
+          <el-button size="mini"  @click="$router.push({path:'/answer/read',query:{id:row.id}})" >查看</el-button>
+          <el-button size="mini" @click="$router.push({path:'/api/admin/examPaperAnswer/judge',query:{id:row.id}})" >批改</el-button>
         </template>
       </el-table-column>
     </el-table>

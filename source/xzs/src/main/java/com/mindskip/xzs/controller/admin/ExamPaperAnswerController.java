@@ -11,9 +11,41 @@ import com.mindskip.xzs.utility.ExamUtil;
 import com.mindskip.xzs.utility.PageInfoHelper;
 import com.mindskip.xzs.viewmodel.student.exampaper.ExamPaperAnswerPageResponseVM;
 import com.mindskip.xzs.viewmodel.admin.paper.ExamPaperAnswerPageRequestVM;
+import com.mindskip.xzs.viewmodel.admin.exam.ExamPaperEditRequestVM;
+import com.mindskip.xzs.viewmodel.student.exam.ExamPaperReadVM;
+import com.mindskip.xzs.viewmodel.student.exam.ExamPaperSubmitVM;
+import com.mindskip.xzs.viewmodel.student.exampaper.ExamPaperAnswerPageVM;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
+import com.mindskip.xzs.service.ExamPaperService;
+import com.mindskip.xzs.service.SubjectService;
+import com.mindskip.xzs.base.BaseApiController;
+import com.mindskip.xzs.base.RestResponse;
+import com.mindskip.xzs.domain.*;
+import com.mindskip.xzs.domain.enums.ExamPaperAnswerStatusEnum;
+import com.mindskip.xzs.event.CalculateExamPaperAnswerCompleteEvent;
+import com.mindskip.xzs.event.UserEvent;
+import com.mindskip.xzs.service.ExamPaperAnswerService;
+import com.mindskip.xzs.service.ExamPaperService;
+import com.mindskip.xzs.service.SubjectService;
+import com.mindskip.xzs.utility.DateTimeUtil;
+import com.mindskip.xzs.utility.ExamUtil;
+import com.mindskip.xzs.utility.PageInfoHelper;
+import com.mindskip.xzs.viewmodel.admin.exam.ExamPaperEditRequestVM;
+import com.mindskip.xzs.viewmodel.student.exam.ExamPaperReadVM;
+import com.mindskip.xzs.viewmodel.student.exam.ExamPaperSubmitVM;
+import com.mindskip.xzs.viewmodel.student.exampaper.ExamPaperAnswerPageResponseVM;
+import com.mindskip.xzs.viewmodel.student.exampaper.ExamPaperAnswerPageVM;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.Date;
+
 
 @RestController("AdminExamPaperAnswerController")
 @RequestMapping(value = "/api/admin/examPaperAnswer")
@@ -23,11 +55,16 @@ public class ExamPaperAnswerController extends BaseApiController {
     private final SubjectService subjectService;
     private final UserService userService;
 
+    private final ExamPaperService examPaperService;
+    private final ApplicationEventPublisher eventPublisher;
+
     @Autowired
-    public ExamPaperAnswerController(ExamPaperAnswerService examPaperAnswerService, SubjectService subjectService, UserService userService) {
+    public ExamPaperAnswerController(ExamPaperAnswerService examPaperAnswerService, ExamPaperService examPaperService, SubjectService subjectService, UserService userService, ApplicationEventPublisher eventPublisher) {
         this.examPaperAnswerService = examPaperAnswerService;
         this.subjectService = subjectService;
         this.userService = userService;
+        this.examPaperService = examPaperService;
+        this.eventPublisher = eventPublisher;
     }
 
 
@@ -50,5 +87,36 @@ public class ExamPaperAnswerController extends BaseApiController {
         return RestResponse.ok(page);
     }
 
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public RestResponse edit(@RequestBody @Valid ExamPaperSubmitVM examPaperSubmitVM) {
+        boolean notJudge = examPaperSubmitVM.getAnswerItems().stream().anyMatch(i -> i.getDoRight() == null && i.getScore() == null);
+        if (notJudge) {
+            return RestResponse.fail(2, "有未批改题目");
+        }
+
+        ExamPaperAnswer examPaperAnswer = examPaperAnswerService.selectById(examPaperSubmitVM.getId());
+        ExamPaperAnswerStatusEnum examPaperAnswerStatusEnum = ExamPaperAnswerStatusEnum.fromCode(examPaperAnswer.getStatus());
+        if (examPaperAnswerStatusEnum == ExamPaperAnswerStatusEnum.Complete) {
+            return RestResponse.fail(3, "试卷已完成");
+        }
+        String score = examPaperAnswerService.judge(examPaperSubmitVM);
+        User user = getCurrentUser();
+        UserEventLog userEventLog = new UserEventLog(user.getId(), user.getUserName(), user.getRealName(), new Date());
+        String content = user.getUserName() + " 批改试卷：" + examPaperAnswer.getPaperName() + " 得分：" + score;
+        userEventLog.setContent(content);
+        eventPublisher.publishEvent(new UserEvent(userEventLog));
+        return RestResponse.ok(score);
+    }
+
+    @RequestMapping(value = "/read/{id}", method = RequestMethod.POST)
+    public RestResponse<ExamPaperReadVM> read(@PathVariable Integer id) {
+        ExamPaperAnswer examPaperAnswer = examPaperAnswerService.selectById(id);
+        ExamPaperReadVM vm = new ExamPaperReadVM();
+        ExamPaperEditRequestVM paper = examPaperService.examPaperToVM(examPaperAnswer.getExamPaperId());
+        ExamPaperSubmitVM answer = examPaperAnswerService.examPaperAnswerToVM(examPaperAnswer.getId());
+        vm.setPaper(paper);
+        vm.setAnswer(answer);
+        return RestResponse.ok(vm);
+    }
 
 }

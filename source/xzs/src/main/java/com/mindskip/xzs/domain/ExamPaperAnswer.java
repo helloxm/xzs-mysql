@@ -17,7 +17,7 @@ public class ExamPaperAnswer implements Serializable {
     private String paperName;
 
     /**
-     * 试卷类型( 1固定试卷 4.时段试卷 6.任务试卷)
+     * 试卷类型( 1固定试卷 2.班级试卷 4.时段试卷 6.任务试卷)
      */
     private Integer paperType;
 

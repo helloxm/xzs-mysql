@@ -40,7 +40,7 @@ public class User implements Serializable {
     private String phone;
 
     /**
-     * 1.学生  3.管理员
+     * 1.学生 2.老师 3.管理员
      */
     private Integer role;
 

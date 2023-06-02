@@ -11,6 +11,9 @@ import './icons' // icon
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 
+import Print from 'vue-print-nb'
+Vue.use(Print);
+
 Vue.use(Element, {
   size: 'medium' // set element-ui default size
 })

@@ -41,7 +41,7 @@ public class RestDetailsServiceImpl implements UserDetailsService {
         com.mindskip.xzs.domain.User user = userService.getUserByUserName(username);
 
         if (user == null) {
-            throw new UsernameNotFoundException("Username  not found.");
+            throw new UsernameNotFoundException("Username not found.");
         }
 
         ArrayList<GrantedAuthority> grantedAuthorities = new ArrayList<>();

@@ -29,8 +29,8 @@
       <el-table-column prop="createTime" label="提交时间" width="160px"/>
       <el-table-column  label="操作" align="center"  width="160px">
         <template slot-scope="{row}">
-          <el-button size="mini" @click="$router.push({path:'/exam/paper/edit',query:{id:row.id}})" >查看</el-button>
-          <el-button size="mini" type="danger"  @click="deletePaper(row)" class="link-left">打印</el-button>
+          <el-button size="mini"  @click="$router.push({path:'/answer/read',query:{id:row.id}})" >查看</el-button>
+          <el-button size="mini" type="success"  @click="printPaperAnser(row)" class="link-left">打印</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -44,6 +44,7 @@
 import { mapGetters, mapState, mapActions } from 'vuex'
 import Pagination from '@/components/Pagination'
 import examPaperAnswerApi from '@/api/examPaperAnwser'
+import path from 'path'
 
 export default {
   components: { Pagination },
@@ -73,6 +74,9 @@ export default {
         this.queryParam.pageIndex = re.pageNum
         this.listLoading = false
       })
+    },
+    printPaperAnser(row) {
+      //todo...
     },
     submitForm () {
       this.queryParam.pageIndex = 1

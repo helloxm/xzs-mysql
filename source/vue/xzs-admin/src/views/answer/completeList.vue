@@ -29,8 +29,8 @@
       <el-table-column prop="createTime" label="提交时间" width="160px"/>
       <el-table-column  label="操作" align="center"  width="160px">
         <template slot-scope="{row}">
-          <el-button size="mini" @click="$router.push({path:'/exam/paper/edit',query:{id:row.id}})" >查看</el-button>
-          <el-button size="mini" type="danger"  @click="deletePaper(row)" class="link-left">打印</el-button>
+          <el-button size="mini" @click="$router.push({path:'/answer/read',query:{id:row.id}})" >查看</el-button>
+          <el-button size="mini" type="success" @click="$router.push({path:'/answer/answerprinter',query:{id:row.id}})" >打印</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -74,10 +74,18 @@ export default {
         this.listLoading = false
       })
     },
+    readPaper(id) {
+      examPaperAnswerApi.read(id);
+    },
     submitForm () {
       this.queryParam.pageIndex = 1
       this.search()
     },
+
+    printPaper(row) {
+        //todo...
+    },
+
     ...mapActions('exam', { initSubject: 'initSubject' })
   },
   computed: {

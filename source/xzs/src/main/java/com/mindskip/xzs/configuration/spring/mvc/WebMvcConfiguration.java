@@ -38,6 +38,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         registry.addRedirectViewController("/", "/student/index.html");
         registry.addRedirectViewController("/student", "/student/index.html");
         registry.addRedirectViewController("/admin", "/admin/index.html");
+        registry.addRedirectViewController("/teacher", "/teacher/index.html");
     }
 
     @Override
