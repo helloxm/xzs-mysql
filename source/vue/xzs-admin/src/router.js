@@ -118,7 +118,7 @@ const constantRoutes = [
         path: 'question/edit/singleChoice',
         component: () => import('@/views/exam/question/edit/single-choice'),
         name: 'singleChoicePage',
-        meta: { title: '单选题编辑', noCache: true, activeMenu: '/exam/question/list' },
+        meta: { title: '选择题编辑', noCache: true, activeMenu: '/exam/question/list' },
         hidden: true
       },
       {
@@ -256,7 +256,7 @@ const constantRoutes = [
         name: 'ExamPaperPrinter',
         meta: { title: '试卷打印', noCache: true, activeMenu: '/answer/list' },
         hidden: true
-      },
+      }
     ]
   },
   {

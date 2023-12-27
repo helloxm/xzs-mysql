@@ -35,6 +35,8 @@
           <el-checkbox v-for="item in form.items" :label="item.prefix" :key="item.prefix">{{item.prefix}}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
+
+      <CodeHighlight :codeText="test" />
       <el-form-item>
         <el-button type="primary" @click="submitForm">提交</el-button>
         <el-button @click="resetForm">重置</el-button>
@@ -52,18 +54,20 @@
     <el-dialog :visible.sync="questionShow.dialog" style="width: 100%;height: 100%">
       <QuestionShow :qType="questionShow.qType" :question="questionShow.question" :qLoading="questionShow.loading"/>
     </el-dialog>
+
   </div>
 </template>
 
 <script>
 import QuestionShow from '../components/Show'
 import Ueditor from '@/components/Ueditor'
+import CodeHighlight from '@/components/CodeHighlight'
 import { mapGetters, mapState, mapActions } from 'vuex'
 import questionApi from '@/api/question'
 
 export default {
   components: {
-    Ueditor, QuestionShow
+    Ueditor, CodeHighlight, QuestionShow
   },
   data () {
     return {

@@ -18,6 +18,14 @@ Vue.use(Element, {
   size: 'medium' // set element-ui default size
 })
 
+//https://github.com/highlightjs/vue-plugin/tree/1-stable
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
+import hljsVuePlugin from "@highlightjs/vue-plugin";
+hljs.registerLanguage('javascript', javascript);
+Vue.use(hljsVuePlugin);
+
+
 Vue.config.productionTip = false
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration

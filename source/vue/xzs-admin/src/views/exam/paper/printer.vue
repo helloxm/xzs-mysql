@@ -49,7 +49,7 @@ export default {
       },
       printOption:{
         id: 'printDiv',
-        popTitle: '水木-信奥编程培训中心',
+        popTitle: '水木-信奥编程培训中心'
       }
     }
   },
@@ -62,7 +62,7 @@ export default {
         _this.form = re.response.paper
         _this.answer = re.response.answer
         _this.formLoading = false
-        _this.printOption.popTitle= _this.form.name +" ----  水木-信奥编程培训中心"
+        _this.printOption.popTitle = _this.form.name + ' ----  水木-信奥编程培训中心'
       })
     }
   },

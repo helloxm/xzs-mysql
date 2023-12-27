@@ -29,8 +29,8 @@
       <el-table-column  label="操作" align="center"  width="240px">
         <template slot-scope="{row}">
           <el-button size="mini" @click="$router.push({path:'/exam/paper/edit',query:{id:row.id}})" >编辑</el-button>
-          <el-button size="mini" type="danger"  @click="deletePaper(row)" class="link-left">删除</el-button> 
-          <el-button size="mini" type="success" @click="$router.push({path:'/answer/printer',query:{id:row.id}})" >打印</el-button>
+          <el-button size="mini" type="danger"  @click="deletePaper(row)" class="link-left">删除</el-button>
+          <el-button size="mini" type="success" @click="$router.push({path:'/answer/printer',query:{id:row.id}})">打印</el-button>
         </template>
       </el-table-column>
     </el-table>

@@ -15,13 +15,13 @@ const state = {
       paperTypeEnum: [{ key: 1, value: '固定试卷' }, { key: 4, value: '时段试卷' }, { key: 6, value: '任务试卷' }]
     },
     question: {
-      typeEnum: [{ key: 1, value: '单选题' }, { key: 2, value: '判断题' }, { key: 3, value: '填空题' }, { key: 4, value: '简答题' }, { key: 5, value: '程序阅读题' }, { key: 6, value: '程序完善题' }, { key: 7, value: '编程题' }],
-        editUrlEnum: [{ key: 1, value: '/exam/question/edit/singleChoice', name: '单选题' },
+      typeEnum: [{ key: 1, value: '选择题' }, { key: 2, value: '判断题' }, { key: 3, value: '填空题' }, { key: 4, value: '简答题' }, { key: 5, value: '程序阅读题' }, { key: 6, value: '程序完善题' }, { key: 7, value: '编程题' }],
+        editUrlEnum: [{ key: 1, value: '/exam/question/edit/singleChoice', name: '选择题' },
           { key: 2, value: '/exam/question/edit/trueFalse', name: '判断题' },
           { key: 3, value: '/exam/question/edit/gapFilling', name: '填空题' },
           { key: 4, value: '/exam/question/edit/shortAnswer', name: '简答题' },
-          { key: 5, value: '/exam/question/edit/programReading', name: '程序完善题' },
-          { key: 6, value: '/exam/question/edit/programGrapFilling', name: '程序阅读题' },
+          { key: 5, value: '/exam/question/edit/programReading', name: '程序阅读题' },
+          { key: 6, value: '/exam/question/edit/programGapFilling', name: '程序完善题' },
           { key: 7, value: '/exam/question/edit/programCoding', name: '编程题' },
         ],
       answer: {
