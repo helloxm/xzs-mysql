@@ -5,11 +5,13 @@ import java.util.Map;
 
 public enum QuestionTypeEnum {
 
-    SingleChoice(1, "单选题"),
-    MultipleChoice(2, "多选题"),
-    TrueFalse(3, "判断题"),
-    GapFilling(4, "填空题"),
-    ShortAnswer(5, "简答题");
+    SingleChoice(1, "选择题"),
+    TrueFalse(2, "判断题"),
+    GapFilling(3, "填空题"),
+    ShortAnswer(4, "简答题"),
+    ProgramReading(5, "程序读题"),
+    ProgramGapFilling(6, "程序完善题"),
+    ProgramCoding(7, "编程题");
 
     int code;
     String name;

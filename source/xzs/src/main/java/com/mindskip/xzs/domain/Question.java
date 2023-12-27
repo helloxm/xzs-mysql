@@ -14,7 +14,7 @@ public class Question implements Serializable {
     private Integer id;
 
     /**
-     * 	1.单选题 2.多选题 3.判断题 4.填空题 5.简答题
+     * 	1.单选题 2.判断题 3.填空题 4.简答题 5.程序阅读题 6.程序完善题 7 编程题
      */
     private Integer questionType;
 

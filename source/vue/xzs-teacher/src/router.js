@@ -122,13 +122,6 @@ const constantRoutes = [
         hidden: true
       },
       {
-        path: 'question/edit/multipleChoice',
-        component: () => import('@/views/exam/question/edit/multiple-choice'),
-        name: 'multipleChoicePage',
-        meta: { title: '多选题编辑', noCache: true, activeMenu: '/exam/question/list' },
-        hidden: true
-      },
-      {
         path: 'question/edit/trueFalse',
         component: () => import('@/views/exam/question/edit/true-false'),
         name: 'trueFalsePage',
@@ -147,6 +140,27 @@ const constantRoutes = [
         component: () => import('@/views/exam/question/edit/short-answer'),
         name: 'shortAnswerPage',
         meta: { title: '简答题编辑', noCache: true, activeMenu: '/exam/question/list' },
+        hidden: true
+      },
+      {
+        path: 'question/edit/programReading',
+        component: () => import('@/views/exam/question/edit/program-reading'),
+        name: 'programReadingPage',
+        meta: { title: '程序阅读题', noCache: true, activeMenu: '/exam/question/list' },
+        hidden: true
+      },
+      {
+        path: 'question/edit/programGapFiling',
+        component: () => import('@/views/exam/question/edit/program-gap-filling'),
+        name: 'programGapFillingPage',
+        meta: { title: '程序完善题', noCache: true, activeMenu: '/exam/question/list' },
+        hidden: true
+      },
+      {
+        path: 'question/edit/programCoding',
+        component: () => import('@/views/exam/question/edit/program-coding'),
+        name: 'programCodingPage',
+        meta: { title: '编程题', noCache: true, activeMenu: '/exam/question/list' },
         hidden: true
       }
     ]

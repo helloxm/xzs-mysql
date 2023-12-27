@@ -59,6 +59,11 @@ public class DashboardController extends BaseApiController {
         timeLimitPaperFilter.setGradeLevel(user.getUserLevel());
         timeLimitPaperFilter.setExamPaperType(ExamPaperTypeEnum.TimeLimit.getCode());
 
+        PaperFilter pushPaperFilter = new PaperFilter();
+        pushPaperFilter.setGradeLevel(user.getUserLevel());
+        pushPaperFilter.setExamPaperType(ExamPaperTypeEnum.Task.getCode());
+        indexVM.setPushPaper(examPaperService.indexPaper(pushPaperFilter));
+
         List<PaperInfo> limitPaper = examPaperService.indexPaper(timeLimitPaperFilter);
         List<PaperInfoVM> paperInfoVMS = limitPaper.stream().map(d -> {
             PaperInfoVM vm = modelMapper.map(d, PaperInfoVM.class);

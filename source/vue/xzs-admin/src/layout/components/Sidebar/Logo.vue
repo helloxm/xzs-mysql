@@ -24,7 +24,7 @@ export default {
   },
   data () {
     return {
-      title: '水木-信奥考试系统'
+      title: '水木-信奥'
     }
   }
 }
