@@ -32,7 +32,7 @@ const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: '主页', icon: 'home', affix: true }
+        meta: { title: '水木-信奥', icon: 'home', affix: true }
       }
     ]
   },
