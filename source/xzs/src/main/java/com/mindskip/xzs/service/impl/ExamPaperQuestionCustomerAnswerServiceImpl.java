@@ -92,10 +92,6 @@ public class ExamPaperQuestionCustomerAnswerServiceImpl extends BaseServiceImpl<
     private void setSpecialToVM(ExamPaperSubmitItemVM examPaperSubmitItemVM, ExamPaperQuestionCustomerAnswer examPaperQuestionCustomerAnswer) {
         QuestionTypeEnum questionTypeEnum = QuestionTypeEnum.fromCode(examPaperQuestionCustomerAnswer.getQuestionType());
         switch (questionTypeEnum) {
-            case MultipleChoice:
-                examPaperSubmitItemVM.setContent(examPaperQuestionCustomerAnswer.getAnswer());
-                examPaperSubmitItemVM.setContentArray(ExamUtil.contentToArray(examPaperQuestionCustomerAnswer.getAnswer()));
-                break;
             case GapFilling:
                 TextContent textContent = textContentService.selectById(examPaperQuestionCustomerAnswer.getTextContentId());
                 List<String> correctAnswer = JsonUtil.toJsonListObject(textContent.getContent(), String.class);

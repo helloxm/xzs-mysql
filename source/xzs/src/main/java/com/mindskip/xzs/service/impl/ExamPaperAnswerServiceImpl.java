@@ -225,12 +225,12 @@ public class ExamPaperAnswerServiceImpl extends BaseServiceImpl<ExamPaperAnswer>
                 examPaperQuestionCustomerAnswer.setDoRight(question.getCorrect().equals(customerQuestionAnswer.getContent()));
                 examPaperQuestionCustomerAnswer.setCustomerScore(examPaperQuestionCustomerAnswer.getDoRight() ? question.getScore() : 0);
                 break;
-            case MultipleChoice:
-                String customerAnswer = ExamUtil.contentToString(customerQuestionAnswer.getContentArray());
-                examPaperQuestionCustomerAnswer.setAnswer(customerAnswer);
-                examPaperQuestionCustomerAnswer.setDoRight(customerAnswer.equals(question.getCorrect()));
-                examPaperQuestionCustomerAnswer.setCustomerScore(examPaperQuestionCustomerAnswer.getDoRight() ? question.getScore() : 0);
-                break;
+//            case MultipleChoice:
+//                String customerAnswer = ExamUtil.contentToString(customerQuestionAnswer.getContentArray());
+//                examPaperQuestionCustomerAnswer.setAnswer(customerAnswer);
+//                examPaperQuestionCustomerAnswer.setDoRight(customerAnswer.equals(question.getCorrect()));
+//                examPaperQuestionCustomerAnswer.setCustomerScore(examPaperQuestionCustomerAnswer.getDoRight() ? question.getScore() : 0);
+//                break;
             case GapFilling:
                 String correctAnswer = JsonUtil.toJsonStr(customerQuestionAnswer.getContentArray());
                 examPaperQuestionCustomerAnswer.setAnswer(correctAnswer);

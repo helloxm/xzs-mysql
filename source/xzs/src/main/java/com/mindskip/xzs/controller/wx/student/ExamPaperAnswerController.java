@@ -108,9 +108,9 @@ public class ExamPaperAnswerController extends BaseWXApiController {
             if (v.size() == 1) {
                 String content = request.getParameter(p);
                 examPaperSubmitItemVM.setContent(content);
-                if (typeEnum == QuestionTypeEnum.MultipleChoice) {
-                    examPaperSubmitItemVM.setContentArray(Arrays.asList(content.split(",")));
-                }
+//                if (typeEnum == QuestionTypeEnum.MultipleChoice) {
+//                    examPaperSubmitItemVM.setContentArray(Arrays.asList(content.split(",")));
+//                }
             } else {  //多个空 填空题
                 List<String> answers = v.stream().sorted(Comparator.comparingInt(ExamUtil::lastNum)).map(inputKey -> request.getParameter(inputKey)).collect(Collectors.toList());
                 examPaperSubmitItemVM.setContentArray(answers);

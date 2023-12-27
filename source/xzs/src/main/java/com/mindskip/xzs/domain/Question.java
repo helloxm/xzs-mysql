@@ -164,11 +164,14 @@ public class Question implements Serializable {
 
     public void setCorrectFromVM(String correct, List<String> correctArray) {
         int qType = this.getQuestionType();
-        if (qType == QuestionTypeEnum.MultipleChoice.getCode()) {
-            String correctJoin = ExamUtil.contentToString(correctArray);
-            this.setCorrect(correctJoin);
-        } else {
+//        if (qType == QuestionTypeEnum.MultipleChoice.getCode()) {
+//            String correctJoin = ExamUtil.contentToString(correctArray);
+//            this.setCorrect(correctJoin);
+//        } else
+        {
+
             this.setCorrect(correct);
+
         }
     }
 }

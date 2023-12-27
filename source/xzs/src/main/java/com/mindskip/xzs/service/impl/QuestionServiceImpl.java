@@ -123,14 +123,23 @@ public class QuestionServiceImpl extends BaseServiceImpl<Question> implements Qu
             case TrueFalse:
                 questionEditRequestVM.setCorrect(question.getCorrect());
                 break;
-            case MultipleChoice:
-                questionEditRequestVM.setCorrectArray(ExamUtil.contentToArray(question.getCorrect()));
-                break;
             case GapFilling:
                 List<String> correctContent = questionObject.getQuestionItemObjects().stream().map(d -> d.getContent()).collect(Collectors.toList());
                 questionEditRequestVM.setCorrectArray(correctContent);
                 break;
             case ShortAnswer:
+                questionEditRequestVM.setCorrect(questionObject.getCorrect());
+                break;
+            case ProgramReading:
+                //todo..
+                questionEditRequestVM.setCorrect(questionObject.getCorrect());
+                break;
+            case ProgramGapFilling:
+                //todo..
+                questionEditRequestVM.setCorrect(questionObject.getCorrect());
+                break;
+            case ProgramCoding:
+                //todo..
                 questionEditRequestVM.setCorrect(questionObject.getCorrect());
                 break;
             default:
