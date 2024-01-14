@@ -61,7 +61,6 @@ export default {
     }
   },
   created () {
-    this.initSubject()
     this.search()
   },
   methods: {
@@ -81,13 +80,10 @@ export default {
     submitForm () {
       this.queryParam.pageIndex = 1
       this.search()
-    },
-    ...mapActions('exam', { initSubject: 'initSubject' })
+    }
   },
   computed: {
-    ...mapGetters('enumItem', ['enumFormat']),
-    ...mapGetters('exam', ['subjectEnumFormat']),
-    ...mapState('exam', { subjects: state => state.subjects })
+    ...mapGetters('enumItem', ['enumFormat'])
   }
 }
 </script>

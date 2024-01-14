@@ -8,7 +8,6 @@ import com.mindskip.xzs.event.CalculateExamPaperAnswerCompleteEvent;
 import com.mindskip.xzs.event.UserEvent;
 import com.mindskip.xzs.service.ExamPaperAnswerService;
 import com.mindskip.xzs.service.ExamPaperService;
-import com.mindskip.xzs.service.SubjectService;
 import com.mindskip.xzs.utility.DateTimeUtil;
 import com.mindskip.xzs.utility.ExamUtil;
 import com.mindskip.xzs.utility.PageInfoHelper;
@@ -36,14 +35,12 @@ import java.util.stream.Collectors;
 public class ExamPaperAnswerController extends BaseWXApiController {
 
     private final ExamPaperAnswerService examPaperAnswerService;
-    private final SubjectService subjectService;
     private final ApplicationEventPublisher eventPublisher;
     private final ExamPaperService examPaperService;
 
     @Autowired
-    public ExamPaperAnswerController(ExamPaperAnswerService examPaperAnswerService, SubjectService subjectService, ApplicationEventPublisher eventPublisher, ExamPaperService examPaperService) {
+    public ExamPaperAnswerController(ExamPaperAnswerService examPaperAnswerService, ApplicationEventPublisher eventPublisher, ExamPaperService examPaperService) {
         this.examPaperAnswerService = examPaperAnswerService;
-        this.subjectService = subjectService;
         this.eventPublisher = eventPublisher;
         this.examPaperService = examPaperService;
     }
@@ -54,12 +51,10 @@ public class ExamPaperAnswerController extends BaseWXApiController {
         PageInfo<ExamPaperAnswer> pageInfo = examPaperAnswerService.studentPage(model);
         PageInfo<ExamPaperAnswerPageResponseVM> page = PageInfoHelper.copyMap(pageInfo, e -> {
             ExamPaperAnswerPageResponseVM vm = modelMapper.map(e, ExamPaperAnswerPageResponseVM.class);
-            Subject subject = subjectService.selectById(vm.getSubjectId());
             vm.setDoTime(ExamUtil.secondToVM(e.getDoTime()));
             vm.setSystemScore(ExamUtil.scoreToVM(e.getSystemScore()));
             vm.setUserScore(ExamUtil.scoreToVM(e.getUserScore()));
             vm.setPaperScore(ExamUtil.scoreToVM(e.getPaperScore()));
-            vm.setSubjectName(subject.getName());
             vm.setCreateTime(DateTimeUtil.dateFormat(e.getCreateTime()));
             return vm;
         });

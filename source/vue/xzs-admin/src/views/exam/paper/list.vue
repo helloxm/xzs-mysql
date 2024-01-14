@@ -5,13 +5,8 @@
         <el-input v-model="queryParam.id" clearable></el-input>
       </el-form-item>
       <el-form-item label="级别：">
-        <el-select v-model="queryParam.level" placeholder="级别" @change="levelChange" clearable>
+        <el-select v-model="queryParam.level" placeholder="级别" clearable>
           <el-option v-for="item in levelEnum" :key="item.key" :value="item.key" :label="item.value"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="学科：" >
-        <el-select v-model="queryParam.subjectId"  clearable>
-          <el-option v-for="item in subjectFilter" :key="item.id" :value="item.id" :label="item.name+' ( '+item.levelName+' )'"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -23,7 +18,6 @@
     </el-form>
     <el-table v-loading="listLoading" :data="tableData" border fit highlight-current-row style="width: 100%">
       <el-table-column prop="id" label="Id" width="90px"/>
-      <el-table-column prop="subjectId" label="学科" :formatter="subjectFormatter" width="120px" />
       <el-table-column prop="name" label="名称"  />
       <el-table-column prop="createTime" label="创建时间" width="160px"/>
       <el-table-column  label="操作" align="center"  width="240px">
@@ -51,7 +45,6 @@ export default {
       queryParam: {
         id: null,
         level: null,
-        subjectId: null,
         pageIndex: 1,
         pageSize: 10
       },
@@ -62,7 +55,6 @@ export default {
     }
   },
   created () {
-    this.initSubject()
     this.search()
   },
   methods: {
@@ -90,23 +82,13 @@ export default {
           _this.$message.error(re.message)
         }
       })
-    },
-    levelChange () {
-      this.queryParam.subjectId = null
-      this.subjectFilter = this.subjects.filter(data => data.level === this.queryParam.level)
-    },
-    subjectFormatter  (row, column, cellValue, index) {
-      return this.subjectEnumFormat(cellValue)
-    },
-    ...mapActions('exam', { initSubject: 'initSubject' })
+    }
   },
   computed: {
     ...mapGetters('enumItem', ['enumFormat']),
     ...mapState('enumItem', {
       levelEnum: state => state.user.levelEnum
-    }),
-    ...mapGetters('exam', ['subjectEnumFormat']),
-    ...mapState('exam', { subjects: state => state.subjects })
+    })
   }
 }
 </script>

@@ -190,31 +190,6 @@ const constantRoutes = [
     ]
   },
   {
-    path: '/education',
-    component: Layout,
-    name: 'EducationPage',
-    meta: {
-      title: '教育管理',
-      icon: 'education'
-    },
-    alwaysShow: true,
-    children: [
-      {
-        path: 'subject/list',
-        component: () => import('@/views/education/subject/list'),
-        name: 'EducationSubjectPage',
-        meta: { title: '学科列表', noCache: true }
-      },
-      {
-        path: 'subject/edit',
-        component: () => import('@/views/education/subject/edit'),
-        name: 'EducationSubjectEditPage',
-        meta: { title: '学科编辑', noCache: true, activeMenu: '/education/subject/list' },
-        hidden: true
-      }
-    ]
-  },
-  {
     path: '/answer',
     component: Layout,
     name: 'AnswerPage',

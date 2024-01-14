@@ -3,7 +3,7 @@
 
     <el-form :model="form" ref="form" label-width="100px" v-loading="formLoading" :rules="rules">
       <el-form-item label="级别：" prop="gradeLevel"  required>
-        <el-select v-model="form.gradeLevel" placeholder="级别" @change="levelChange" >
+        <el-select v-model="form.gradeLevel" placeholder="级别" >
           <el-option v-for="item in levelEnum" :key="item.key" :value="item.key" :label="item.value"></el-option>
         </el-select>
       </el-form-item>
@@ -12,7 +12,6 @@
       </el-form-item>
       <el-form-item label="试卷："  required>
         <el-table  :data="form.paperItems" border fit highlight-current-row style="width: 100%">
-          <el-table-column prop="subjectId" label="学科" :formatter="subjectFormatter" width="120px" />
           <el-table-column prop="name" label="名称"  />
           <el-table-column prop="createTime" label="创建时间" width="160px"/>
           <el-table-column  label="操作" align="center"  width="160px">
@@ -30,21 +29,10 @@
     </el-form>
 
     <el-dialog :visible.sync="paperPage.showDialog" width="70%">
-      <el-form :model="paperPage.queryParam" ref="queryForm" :inline="true">
-        <el-form-item label="学科：" >
-          <el-select v-model="paperPage.queryParam.subjectId"  clearable>
-            <el-option v-for="item in paperPage.subjectFilter" :key="item.id" :value="item.id" :label="item.name+' ( '+item.levelName+' )'"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="examPaperSubmitForm">查询</el-button>
-        </el-form-item>
-      </el-form>
       <el-table v-loading="paperPage.listLoading" :data="paperPage.tableData"
                 @selection-change="handleSelectionChange" border fit highlight-current-row style="width: 100%">
         <el-table-column type="selection" width="35"></el-table-column>
         <el-table-column prop="id" label="Id" width="90px"/>
-        <el-table-column prop="subjectId" label="学科" :formatter="subjectFormatter" width="120px" />
         <el-table-column prop="name" label="名称"  />
         <el-table-column prop="createTime" label="创建时间" width="160px"/>
       </el-table>
@@ -77,11 +65,9 @@ export default {
       },
       formLoading: false,
       paperPage: {
-        subjectFilter: null,
         multipleSelection: [],
         showDialog: false,
         queryParam: {
-          subjectId: null,
           level: null,
           paperType: 6,
           pageIndex: 1,
@@ -99,9 +85,6 @@ export default {
   },
   created () {
     let _this = this
-    this.initSubject(function () {
-      _this.paperPage.subjectFilter = _this.subjects
-    })
 
     let id = this.$route.query.id
     if (id && parseInt(id) !== 0) {
@@ -139,10 +122,6 @@ export default {
     examPaperSubmitForm () {
       this.paperPage.queryParam.pageIndex = 1
       this.search()
-    },
-    levelChange () {
-      this.paperPage.queryParam.subjectId = null
-      this.paperPage.subjectFilter = this.subjects.filter(data => data.level === this.form.gradeLevel)
     },
     removePaper (row) {
       this.form.paperItems.forEach((item, index, arr) => {
@@ -185,10 +164,6 @@ export default {
       }
       this.form.id = lastId
     },
-    subjectFormatter (row, column, cellValue, index) {
-      return this.subjectEnumFormat(cellValue)
-    },
-    ...mapActions('exam', { initSubject: 'initSubject' }),
     ...mapActions('tagsView', { delCurrentView: 'delCurrentView' })
   },
   computed: {
@@ -196,9 +171,7 @@ export default {
     ...mapState('enumItem', {
       questionTypeEnum: state => state.exam.question.typeEnum,
       levelEnum: state => state.user.levelEnum
-    }),
-    ...mapGetters('exam', ['subjectEnumFormat']),
-    ...mapState('exam', { subjects: state => state.subjects })
+    })
   }
 }
 </script>

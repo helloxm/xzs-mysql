@@ -1,6 +1,5 @@
 package com.mindskip.xzs.service.impl;
 
-import com.mindskip.xzs.domain.*;
 import com.mindskip.xzs.domain.TextContent;
 import com.mindskip.xzs.domain.enums.ExamPaperTypeEnum;
 import com.mindskip.xzs.domain.exam.ExamPaperQuestionItemObject;
@@ -10,7 +9,6 @@ import com.mindskip.xzs.repository.ExamPaperMapper;
 import com.mindskip.xzs.repository.QuestionMapper;
 import com.mindskip.xzs.service.ExamPaperService;
 import com.mindskip.xzs.service.QuestionService;
-import com.mindskip.xzs.service.SubjectService;
 import com.mindskip.xzs.service.TextContentService;
 import com.mindskip.xzs.service.enums.ActionEnum;
 import com.mindskip.xzs.utility.DateTimeUtil;
@@ -48,16 +46,14 @@ public class ExamPaperServiceImpl extends BaseServiceImpl<ExamPaper> implements 
     private final QuestionMapper questionMapper;
     private final TextContentService textContentService;
     private final QuestionService questionService;
-    private final SubjectService subjectService;
 
     @Autowired
-    public ExamPaperServiceImpl(ExamPaperMapper examPaperMapper, QuestionMapper questionMapper, TextContentService textContentService, QuestionService questionService, SubjectService subjectService) {
+    public ExamPaperServiceImpl(ExamPaperMapper examPaperMapper, QuestionMapper questionMapper, TextContentService textContentService, QuestionService questionService) {
         super(examPaperMapper);
         this.examPaperMapper = examPaperMapper;
         this.questionMapper = questionMapper;
         this.textContentService = textContentService;
         this.questionService = questionService;
-        this.subjectService = subjectService;
     }
 
 
@@ -168,7 +164,7 @@ public class ExamPaperServiceImpl extends BaseServiceImpl<ExamPaper> implements 
     }
 
     private void examPaperFromVM(ExamPaperEditRequestVM examPaperEditRequestVM, ExamPaper examPaper, List<ExamPaperTitleItemVM> titleItemsVM) {
-        Integer gradeLevel = subjectService.levelBySubjectId(examPaperEditRequestVM.getSubjectId());
+        Integer gradeLevel =1;//TODO...
         Integer questionCount = titleItemsVM.stream()
                 .mapToInt(t -> t.getQuestionItems().size()).sum();
         Integer score = titleItemsVM.stream().

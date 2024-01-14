@@ -9,14 +9,8 @@
       </el-form-item>
 
       <el-form-item label="级别：">
-        <el-select v-model="queryParam.level" placeholder="级别"  @change="levelChange" clearable>
+        <el-select v-model="queryParam.level" placeholder="级别" clearable>
           <el-option v-for="item in levelEnum" :key="item.key" :value="item.key" :label="item.value"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="学科：">
-        <el-select v-model="queryParam.subjectId" clearable>
-          <el-option v-for="item in subjectFilter" :key="item.id" :value="item.id"
-                     :label="item.name+' ( '+item.levelName+' )'"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="题型：">
@@ -36,7 +30,6 @@
     </el-form>
     <el-table v-loading="listLoading" :data="tableData" border fit highlight-current-row style="width: 100%">
       <el-table-column prop="id" label="Id" width="90px"/>
-      <el-table-column prop="subjectId" label="学科" :formatter="subjectFormatter" width="140px"/>
       <el-table-column prop="questionType" label="题型" :formatter="questionTypeFormatter" width="70px"/>
       <el-table-column prop="shortTitle" label="题干" show-overflow-tooltip/>
       <el-table-column prop="score" label="分数" width="60px"/>
@@ -72,11 +65,9 @@ export default {
         id: null,
         questionType: null,
         level: null,
-        subjectId: null,
         pageIndex: 1,
         pageSize: 10
       },
-      subjectFilter: null,
       listLoading: true,
       tableData: [],
       total: 0,
@@ -89,7 +80,6 @@ export default {
     }
   },
   created () {
-    this.initSubject()
     this.search()
   },
   methods: {
@@ -106,10 +96,6 @@ export default {
         this.queryParam.pageIndex = re.pageNum
         this.listLoading = false
       })
-    },
-    levelChange () {
-      this.queryParam.subjectId = null
-      this.subjectFilter = this.subjects.filter(data => data.level === this.queryParam.level)
     },
     addQuestion () {
       this.$router.push('/exam/question/edit/singleChoice')
@@ -142,10 +128,6 @@ export default {
     questionTypeFormatter (row, column, cellValue, index) {
       return this.enumFormat(this.questionType, cellValue)
     },
-    subjectFormatter (row, column, cellValue, index) {
-      return this.subjectEnumFormat(cellValue)
-    },
-    ...mapActions('exam', { initSubject: 'initSubject' })
   },
   computed: {
     ...mapGetters('enumItem', ['enumFormat']),
@@ -154,8 +136,6 @@ export default {
       editUrlEnum: state => state.exam.question.editUrlEnum,
       levelEnum: state => state.user.levelEnum
     }),
-    ...mapGetters('exam', ['subjectEnumFormat']),
-    ...mapState('exam', { subjects: state => state.subjects })
   }
 }
 </script>

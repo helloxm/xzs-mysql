@@ -2,13 +2,8 @@
   <div class="app-container">
     <el-form :model="form" ref="form" label-width="100px" v-loading="formLoading"  :rules="rules">
       <el-form-item label="级别：" prop="gradeLevel" required>
-        <el-select v-model="form.gradeLevel" placeholder="级别"  @change="levelChange">
+        <el-select v-model="form.gradeLevel" placeholder="级别">
           <el-option v-for="item in levelEnum" :key="item.key" :value="item.key" :label="item.value"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="学科：" prop="subjectId" required>
-        <el-select v-model="form.subjectId" placeholder="学科" >
-          <el-option v-for="item in subjectFilter" :key="item.id" :value="item.id" :label="item.name+' ( '+item.levelName+' )'"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="题干：" prop="title" required>
@@ -35,8 +30,6 @@
           <el-checkbox v-for="item in form.items" :label="item.prefix" :key="item.prefix">{{item.prefix}}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
-
-      <CodeHighlight :codeText="test" />
       <el-form-item>
         <el-button type="primary" @click="submitForm">提交</el-button>
         <el-button @click="resetForm">重置</el-button>
@@ -54,20 +47,18 @@
     <el-dialog :visible.sync="questionShow.dialog" style="width: 100%;height: 100%">
       <QuestionShow :qType="questionShow.qType" :question="questionShow.question" :qLoading="questionShow.loading"/>
     </el-dialog>
-
   </div>
 </template>
 
 <script>
 import QuestionShow from '../components/Show'
 import Ueditor from '@/components/Ueditor'
-import CodeHighlight from '@/components/CodeHighlight'
 import { mapGetters, mapState, mapActions } from 'vuex'
 import questionApi from '@/api/question'
 
 export default {
   components: {
-    Ueditor, CodeHighlight, QuestionShow
+    Ueditor, QuestionShow
   },
   data () {
     return {
@@ -75,7 +66,6 @@ export default {
         id: null,
         questionType: 2,
         gradeLevel: null,
-        subjectId: null,
         title: '',
         items: [
           { id: null, prefix: 'A', content: '' },
@@ -89,14 +79,10 @@ export default {
         score: '',
         difficult: 0
       },
-      subjectFilter: null,
       formLoading: false,
       rules: {
         gradeLevel: [
           { required: true, message: '请选择级别', trigger: 'change' }
-        ],
-        subjectId: [
-          { required: true, message: '请选择学科', trigger: 'change' }
         ],
         title: [
           { required: true, message: '请输入题干', trigger: 'blur' }
@@ -128,9 +114,6 @@ export default {
   created () {
     let id = this.$route.query.id
     let _this = this
-    this.initSubject(function () {
-      _this.subjectFilter = _this.subjects
-    })
     if (id && parseInt(id) !== 0) {
       _this.formLoading = true
       questionApi.select(id).then(re => {
@@ -194,10 +177,6 @@ export default {
         }
       })
     },
-    levelChange () {
-      this.form.subjectId = null
-      this.subjectFilter = this.subjects.filter(data => data.level === this.form.gradeLevel)
-    },
     showQuestion () {
       this.questionShow.dialog = true
       this.questionShow.qType = this.form.questionType
@@ -210,7 +189,6 @@ export default {
         id: null,
         questionType: 2,
         gradeLevel: null,
-        subjectId: null,
         title: '',
         items: [
           { id: null, prefix: 'A', content: '' },
@@ -226,7 +204,6 @@ export default {
       }
       this.form.id = lastId
     },
-    ...mapActions('exam', { initSubject: 'initSubject' }),
     ...mapActions('tagsView', { delCurrentView: 'delCurrentView' })
   },
   computed: {
@@ -234,8 +211,7 @@ export default {
     ...mapState('enumItem', {
       questionTypeEnum: state => state.exam.question.typeEnum,
       levelEnum: state => state.user.levelEnum
-    }),
-    ...mapState('exam', { subjects: state => state.subjects })
+    })
   }
 }
 </script>

@@ -1,16 +1,5 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParam" ref="queryForm" :inline="true">
-      <el-form-item label="学科：" >
-        <el-select v-model="queryParam.subjectId"  clearable>
-          <el-option v-for="item in subjects" :key="item.id" :value="item.id" :label="item.name"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm">查询</el-button>
-      </el-form-item>
-    </el-form>
-
     <el-table v-loading="listLoading" :data="tableData" border fit highlight-current-row style="width: 100%">
       <el-table-column prop="id" label="Id"  width="100" />
       <el-table-column prop="paperName" label="试卷名称"/>
@@ -50,7 +39,6 @@ export default {
   data () {
     return {
       queryParam: {
-        subjectId: null,
         pageIndex: 1,
         pageSize: 10
       },
@@ -60,7 +48,6 @@ export default {
     }
   },
   created () {
-    this.initSubject()
     this.search()
   },
   methods: {
@@ -77,13 +64,10 @@ export default {
     submitForm () {
       this.queryParam.pageIndex = 1
       this.search()
-    },
-    ...mapActions('exam', { initSubject: 'initSubject' })
+    }
   },
   computed: {
-    ...mapGetters('enumItem', ['enumFormat']),
-    ...mapGetters('exam', ['subjectEnumFormat']),
-    ...mapState('exam', { subjects: state => state.subjects })
+    ...mapGetters('enumItem', ['enumFormat'])
   }
 }
 </script>

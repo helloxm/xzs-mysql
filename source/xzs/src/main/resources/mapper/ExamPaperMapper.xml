@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.mindskip.xzs.domain.ExamPaper">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
     <result column="paper_type" jdbcType="INTEGER" property="paperType" />
     <result column="grade_level" jdbcType="INTEGER" property="gradeLevel" />
     <result column="score" jdbcType="INTEGER" property="score" />
@@ -19,7 +18,7 @@
     <result column="task_exam_id" jdbcType="INTEGER" property="taskExamId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, subject_id, paper_type, grade_level, score, question_count, suggest_time,
+    id, name, paper_type, grade_level, score, question_count, suggest_time,
     limit_start_time, limit_end_time, frame_text_content_id, create_user, create_time,
     deleted, task_exam_id
   </sql>
@@ -34,13 +33,13 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.mindskip.xzs.domain.ExamPaper" useGeneratedKeys="true" keyProperty="id">
-    insert into t_exam_paper (id, name, subject_id,
+    insert into t_exam_paper (id, name,
       paper_type, grade_level, score,
       question_count, suggest_time, limit_start_time,
       limit_end_time, frame_text_content_id, create_user,
       create_time, deleted, task_exam_id
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{subjectId,jdbcType=INTEGER},
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},,jdbcType=INTEGER},
       #{paperType,jdbcType=INTEGER}, #{gradeLevel,jdbcType=INTEGER}, #{score,jdbcType=INTEGER},
       #{questionCount,jdbcType=INTEGER}, #{suggestTime,jdbcType=INTEGER}, #{limitStartTime,jdbcType=TIMESTAMP},
       #{limitEndTime,jdbcType=TIMESTAMP}, #{frameTextContentId,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER},
@@ -55,9 +54,6 @@
       </if>
       <if test="name != null">
         name,
-      </if>
-      <if test="subjectId != null">
-        subject_id,
       </if>
       <if test="paperType != null">
         paper_type,
@@ -103,9 +99,6 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="subjectId != null">
-        #{subjectId,jdbcType=INTEGER},
-      </if>
       <if test="paperType != null">
         #{paperType,jdbcType=INTEGER},
       </if>
@@ -150,9 +143,6 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="subjectId != null">
-        subject_id = #{subjectId,jdbcType=INTEGER},
-      </if>
       <if test="paperType != null">
         paper_type = #{paperType,jdbcType=INTEGER},
       </if>
@@ -195,7 +185,6 @@
   <update id="updateByPrimaryKey" parameterType="com.mindskip.xzs.domain.ExamPaper">
     update t_exam_paper
     set name = #{name,jdbcType=VARCHAR},
-      subject_id = #{subjectId,jdbcType=INTEGER},
       paper_type = #{paperType,jdbcType=INTEGER},
       grade_level = #{gradeLevel,jdbcType=INTEGER},
       score = #{score,jdbcType=INTEGER},
@@ -238,9 +227,6 @@
       <if test="level != null ">
         and grade_level= #{level}
       </if>
-      <if test="subjectId != null ">
-        and subject_id= #{subjectId}
-      </if>
       <if test="paperType != null ">
         and paper_type= #{paperType}
       </if>
@@ -269,9 +255,7 @@
     FROM t_exam_paper
     <where>
        and deleted=0
-      <if test="subjectId != null ">
-        and subject_id=#{subjectId}
-      </if>
+
       <if test="levelId != null ">
         and grade_level=#{levelId}
       </if>

@@ -15,18 +15,6 @@ const getters = {
   }
 }
 
-// actions
-const actions = {
-  initSubject ({ commit }, action) {
-    subjectApi.list().then(re => {
-      commit('setSubjects', re.response)
-      if (action !== undefined) {
-        action()
-      }
-    })
-  }
-}
-
 // mutations
 const mutations = {
   setSubjects: (state, subjects) => {
@@ -38,6 +26,5 @@ export default {
   namespaced: true,
   state,
   getters,
-  actions,
   mutations
 }

@@ -9,7 +9,6 @@ import com.mindskip.xzs.domain.question.QuestionItemObject;
 import com.mindskip.xzs.domain.question.QuestionObject;
 import com.mindskip.xzs.repository.QuestionMapper;
 import com.mindskip.xzs.service.QuestionService;
-import com.mindskip.xzs.service.SubjectService;
 import com.mindskip.xzs.service.TextContentService;
 import com.mindskip.xzs.utility.DateTimeUtil;
 import com.mindskip.xzs.utility.JsonUtil;
@@ -35,14 +34,11 @@ public class QuestionServiceImpl extends BaseServiceImpl<Question> implements Qu
     protected final static ModelMapper modelMapper = ModelMapperSingle.Instance();
     private final QuestionMapper questionMapper;
     private final TextContentService textContentService;
-    private final SubjectService subjectService;
-
     @Autowired
-    public QuestionServiceImpl(QuestionMapper questionMapper, TextContentService textContentService, SubjectService subjectService) {
+    public QuestionServiceImpl(QuestionMapper questionMapper, TextContentService textContentService) {
         super(questionMapper);
         this.textContentService = textContentService;
         this.questionMapper = questionMapper;
-        this.subjectService = subjectService;
     }
 
     @Override
@@ -57,7 +53,7 @@ public class QuestionServiceImpl extends BaseServiceImpl<Question> implements Qu
     @Transactional
     public Question insertFullQuestion(QuestionEditRequestVM model, Integer userId) {
         Date now = new Date();
-        Integer gradeLevel = subjectService.levelBySubjectId(model.getSubjectId());
+        Integer gradeLevel = 1;//TODO...
 
         //题干、解析、选项等 插入
         TextContent infoTextContent = new TextContent();
@@ -84,7 +80,7 @@ public class QuestionServiceImpl extends BaseServiceImpl<Question> implements Qu
     @Override
     @Transactional
     public Question updateFullQuestion(QuestionEditRequestVM model) {
-        Integer gradeLevel = subjectService.levelBySubjectId(model.getSubjectId());
+        Integer gradeLevel = 1;//TODO...
         Question question = questionMapper.selectByPrimaryKey(model.getId());
         question.setSubjectId(model.getSubjectId());
         question.setGradeLevel(gradeLevel);
