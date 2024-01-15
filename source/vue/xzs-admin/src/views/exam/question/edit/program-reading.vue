@@ -64,7 +64,7 @@ export default {
     return {
       form: {
         id: null,
-        questionType: 2,
+        questionType: 5,
         gradeLevel: null,
         title: '',
         items: [
@@ -187,7 +187,7 @@ export default {
       this.$refs['form'].resetFields()
       this.form = {
         id: null,
-        questionType: 2,
+        questionType: 5,
         gradeLevel: null,
         title: '',
         items: [

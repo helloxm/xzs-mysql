@@ -74,7 +74,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('enumItem', ['enumFormat']),
+    ...mapGetters('enumItem', ['enumFormat'])
   }
 }
 </script>

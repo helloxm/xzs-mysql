@@ -199,7 +199,6 @@ export default {
       this.questionPage.showDialog = false
     },
     search () {
-      this.questionPage.queryParam.subjectId = this.form.subjectId
       this.questionPage.listLoading = true
       questionApi.pageList(this.questionPage.queryParam).then(data => {
         const re = data.response

@@ -30,7 +30,7 @@
 
 <script>
 
-import { mapGetters, mapState, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import Pagination from '@/components/Pagination'
 import examPaperAnswerApi from '@/api/examPaperAnwser'
 
